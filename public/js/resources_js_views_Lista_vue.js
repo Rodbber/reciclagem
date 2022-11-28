@@ -525,7 +525,7 @@ var render = function () {
         "router-link",
         {
           staticClass: "pl-10",
-          attrs: { slot: "right", to: "/" },
+          attrs: { slot: "right", to: "/home" },
           slot: "right",
         },
         [

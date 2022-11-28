@@ -1,6 +1,6 @@
 <template>
   <div class="max-w-full py-5 px-10">
-    <router-link :to="!id ? '/' : '/lista'" slot="right" class="pl-2 mt-2">
+    <router-link :to="!id ? '/home' : '/lista'" slot="right" class="pl-2 mt-2">
       <v-icon color="black"> mdi-arrow-left </v-icon>
     </router-link>
     <div class="overflow-y-auto overflow-x-hidden max-h-max w-full">
@@ -14,7 +14,11 @@
           <label for="dataColeta">data da coleta:</label>
         </v-row>
         <div class="border">
-          <input id="dataColeta" type="datetime-local" v-model="form.data_hora" />
+          <input
+            id="dataColeta"
+            type="datetime-local"
+            v-model="form.data_hora"
+          />
         </div>
       </div>
       <div class="flex flex-col">
@@ -96,6 +100,20 @@
           <v-icon class="text-white"> mdi-content-save </v-icon>
         </v-btn>
       </div>
+      <v-snackbar
+        v-model="snackbar"
+        :timeout="timeout"
+        top
+        :color="message == 'Sucesso!' ? 'success' : 'error'"
+      >
+        {{ message }}
+
+        <template v-slot:action="{ attrs }">
+          <v-btn color="blue" text v-bind="attrs" @click="snackbar = false">
+            Close
+          </v-btn>
+        </template>
+      </v-snackbar>
     </div>
   </div>
 </template>
@@ -110,8 +128,9 @@ export default {
   },
   data: function () {
     return {
-      success: false,
-      error: false,
+      message: "",
+      snackbar: false,
+      timeout: 5000,
       loading: false,
       form: {},
       rules: {
@@ -153,21 +172,22 @@ export default {
     id(n) {
       if (n) {
         this.id = n;
-        this.show()
+        this.show();
       }
     },
   },
   methods: {
-    show(){
-        if(this.id){
-            axios.get('/coleta/' + this.id)
-            .then(r => {
-                if(r.data){
-                    this.form = r.data
-                }
-            })
-            .catch(e => console.log(e))
-        }
+    show() {
+      if (this.id) {
+        axios
+          .get("/coleta/" + this.id)
+          .then((r) => {
+            if (r.data) {
+              this.form = r.data;
+            }
+          })
+          .catch((e) => console.log(e));
+      }
     },
     salvar() {
       this.loading = true;
@@ -184,10 +204,8 @@ export default {
         data: this.form,
       })
         .then((r) => {
-          this.success = true;
-          setTimeout(() => {
-            this.success = false;
-          }, 3000);
+          this.snackbar = true;
+          this.message = "Sucesso!";
           this.loading = false;
           if (r.data) {
             console.log(r.data);
@@ -197,10 +215,8 @@ export default {
           }
         })
         .catch((e) => {
-          this.error = true;
-          setTimeout(() => {
-            this.success = false;
-          }, 3000);
+            this.snackbar = true;
+          this.message = "Error!";
           this.loading = false;
           console.log(e);
         });
@@ -221,8 +237,8 @@ export default {
       }
     },
   },
-  mounted(){
-    this.show()
-  }
+  mounted() {
+    this.show();
+  },
 };
 </script>

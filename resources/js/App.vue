@@ -19,12 +19,13 @@
               <Popup />
             </v-app-bar>
           </div>
-          <div class="w-4/5 h-[90vh] bg-white">
+          <div class="w-full md:w-4/5 h-full md:h-[90vh] overflow-y-auto max-h-max bg-white">
             <router-view />
           </div>
         </div>
       </v-responsive>
     </v-app>
+    <BottonSheet />
   </div>
 </template>
 

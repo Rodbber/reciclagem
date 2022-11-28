@@ -2097,6 +2097,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -2247,9 +2248,9 @@ var routes = [{
   component: _pages_Login_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
 }, {
   path: '/',
-  name: 'home',
+  name: 'tela_inicial',
   component: function component() {
-    return __webpack_require__.e(/*! import() */ "resources_js_views_Home_vue").then(__webpack_require__.bind(__webpack_require__, /*! ./views/Home.vue */ "./resources/js/views/Home.vue"));
+    return __webpack_require__.e(/*! import() */ "resources_js_views_TelaInicial_vue").then(__webpack_require__.bind(__webpack_require__, /*! ./views/TelaInicial.vue */ "./resources/js/views/TelaInicial.vue"));
   }
 }, {
   path: '/home',
@@ -3406,7 +3407,10 @@ var render = function () {
                 _vm._v(" "),
                 _c(
                   "div",
-                  { staticClass: "w-4/5 h-[90vh] bg-white" },
+                  {
+                    staticClass:
+                      "w-full md:w-4/5 h-full md:h-[90vh] overflow-y-auto max-h-max bg-white",
+                  },
                   [_c("router-view")],
                   1
                 ),
@@ -3416,6 +3420,8 @@ var render = function () {
         ],
         1
       ),
+      _vm._v(" "),
+      _c("BottonSheet"),
     ],
     1
   )
@@ -65332,7 +65338,7 @@ module.exports = JSON.parse('{"name":"axios","version":"0.21.4","description":"P
 /******/ 		// This function allow to reference async chunks
 /******/ 		__webpack_require__.u = (chunkId) => {
 /******/ 			// return url for filenames not based on template
-/******/ 			if ({"resources_js_views_Home_vue":1,"resources_js_views_Nova_vue":1,"resources_js_views_Lista_vue":1}[chunkId]) return "js/" + chunkId + ".js";
+/******/ 			if ({"resources_js_views_TelaInicial_vue":1,"resources_js_views_Home_vue":1,"resources_js_views_Nova_vue":1,"resources_js_views_Lista_vue":1}[chunkId]) return "js/" + chunkId + ".js";
 /******/ 			// return url for filenames based on template
 /******/ 			return undefined;
 /******/ 		};

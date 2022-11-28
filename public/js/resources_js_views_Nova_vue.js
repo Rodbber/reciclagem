@@ -115,6 +115,24 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -125,8 +143,9 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
-      success: false,
-      error: false,
+      message: "",
+      snackbar: false,
+      timeout: 5000,
       loading: false,
       form: {},
       rules: {
@@ -149,7 +168,7 @@ __webpack_require__.r(__webpack_exports__);
     show: function show() {
       var _this = this;
       if (this.id) {
-        axios__WEBPACK_IMPORTED_MODULE_0___default().get('/coleta/' + this.id).then(function (r) {
+        axios__WEBPACK_IMPORTED_MODULE_0___default().get("/coleta/" + this.id).then(function (r) {
           if (r.data) {
             _this.form = r.data;
           }
@@ -172,10 +191,8 @@ __webpack_require__.r(__webpack_exports__);
         url: url,
         data: this.form
       }).then(function (r) {
-        _this2.success = true;
-        setTimeout(function () {
-          _this2.success = false;
-        }, 3000);
+        _this2.snackbar = true;
+        _this2.message = "Sucesso!";
         _this2.loading = false;
         if (r.data) {
           console.log(r.data);
@@ -184,10 +201,8 @@ __webpack_require__.r(__webpack_exports__);
           _this2.form = {};
         }
       })["catch"](function (e) {
-        _this2.error = true;
-        setTimeout(function () {
-          _this2.success = false;
-        }, 3000);
+        _this2.snackbar = true;
+        _this2.message = "Error!";
         _this2.loading = false;
         console.log(e);
       });
@@ -307,7 +322,7 @@ var render = function () {
         "router-link",
         {
           staticClass: "pl-2 mt-2",
-          attrs: { slot: "right", to: !_vm.id ? "/" : "/lista" },
+          attrs: { slot: "right", to: !_vm.id ? "/home" : "/lista" },
           slot: "right",
         },
         [
@@ -557,6 +572,52 @@ var render = function () {
               ),
             ],
             1
+          ),
+          _vm._v(" "),
+          _c(
+            "v-snackbar",
+            {
+              attrs: {
+                timeout: _vm.timeout,
+                top: "",
+                color: _vm.message == "Sucesso!" ? "success" : "error",
+              },
+              scopedSlots: _vm._u([
+                {
+                  key: "action",
+                  fn: function (ref) {
+                    var attrs = ref.attrs
+                    return [
+                      _c(
+                        "v-btn",
+                        _vm._b(
+                          {
+                            attrs: { color: "blue", text: "" },
+                            on: {
+                              click: function ($event) {
+                                _vm.snackbar = false
+                              },
+                            },
+                          },
+                          "v-btn",
+                          attrs,
+                          false
+                        ),
+                        [_vm._v("\n          Close\n        ")]
+                      ),
+                    ]
+                  },
+                },
+              ]),
+              model: {
+                value: _vm.snackbar,
+                callback: function ($$v) {
+                  _vm.snackbar = $$v
+                },
+                expression: "snackbar",
+              },
+            },
+            [_vm._v("\n      " + _vm._s(_vm.message) + "\n\n      ")]
           ),
         ],
         1

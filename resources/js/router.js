@@ -12,8 +12,8 @@ const routes = [
     },
     {
         path: '/',
-        name: 'home',
-        component: () => import('./views/Home.vue')
+        name: 'tela_inicial',
+        component: () => import('./views/TelaInicial.vue')
     },
     {
         path: '/home',
