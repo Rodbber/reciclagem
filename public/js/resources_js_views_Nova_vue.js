@@ -128,11 +128,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -202,9 +197,16 @@ __webpack_require__.r(__webpack_exports__);
         }
       })["catch"](function (e) {
         _this2.snackbar = true;
-        _this2.message = "Error!";
-        _this2.loading = false;
+        _this2.message = "Error!<br/>";
+        var messageErros = "";
         console.log(e);
+        if (e.response && e.response.status == 422) {
+          for (var i in e.response.data.errors) {
+            messageErros += e.response.data.errors[i][0] + "<br/>";
+          }
+        }
+        _this2.message += messageErros;
+        _this2.loading = false;
       });
     },
     cep: function cep(value) {
@@ -337,38 +339,17 @@ var render = function () {
         "div",
         { staticClass: "overflow-y-auto overflow-x-hidden max-h-max w-full" },
         [
-          _vm.success || _vm.error
-            ? _c(
-                "div",
-                { staticClass: "h-5" },
-                [
-                  _vm.success
-                    ? _c("v-alert", { attrs: { type: "success" } }, [
-                        _vm._v(" Sucesso! "),
-                      ])
-                    : _vm._e(),
-                  _vm._v(" "),
-                  _vm.error
-                    ? _c("v-alert", { attrs: { type: "error" } }, [
-                        _vm._v(" Erro! "),
-                      ])
-                    : _vm._e(),
-                ],
-                1
-              )
-            : _vm._e(),
-          _vm._v(" "),
           _c(
             "div",
             { staticClass: "flex flex-col items-center pt-5 space-y-5" },
             [
               _c("v-row", { staticClass: "justify-start" }, [
                 _c("label", { attrs: { for: "dataColeta" } }, [
-                  _vm._v("data da coleta:"),
+                  _vm._v("data e hora da coleta:"),
                 ]),
               ]),
               _vm._v(" "),
-              _c("div", { staticClass: "border" }, [
+              _c("div", { staticClass: "border p-2 rounded-lg" }, [
                 _c("input", {
                   directives: [
                     {
@@ -617,7 +598,7 @@ var render = function () {
                 expression: "snackbar",
               },
             },
-            [_vm._v("\n      " + _vm._s(_vm.message) + "\n\n      ")]
+            [_c("span", { domProps: { innerHTML: _vm._s(_vm.message) } })]
           ),
         ],
         1

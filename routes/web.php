@@ -30,5 +30,6 @@ Route::middleware('auth')->group(function(){
     Route::patch('/coleta/confirmar/{id}', [RegistroColetaController::class, 'confirmarColeta']);
     Route::get('/coleta/{id}', [RegistroColetaController::class, 'show']);
     Route::delete('/coleta/{id}', [RegistroColetaController::class, 'destroy']);
+    Route::post('/coleta/restore/{id}', [RegistroColetaController::class, 'restore']);
     Route::delete('/coleta/force/{id}', [RegistroColetaController::class, 'forceDelete']);
 });

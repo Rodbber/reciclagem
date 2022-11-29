@@ -15,7 +15,7 @@ class RegistroColetaController extends Controller
      */
     public function index(Request $request)
     {
-        return RegistroColeta::withTrashed()->with('user')->where('user_id', $request->user()->id)->get();
+        return RegistroColeta::withTrashed()->with('user')->where('user_id', $request->user()->id)->orderByDesc('id')->get();
     }
 
     /**
@@ -36,9 +36,10 @@ class RegistroColetaController extends Controller
      */
     public function store(Request $request)
     {
+        $data = $request->all();
         $user = $request->user();
-        $dadosValidados = Validator::make($request->all(), [
-            'data_hora' => 'required',
+        $dadosValidados = Validator::make($data, [
+            'data_hora' => 'required|date_format:Y-m-d\TH:i',
             'cep' => 'required|numeric',
             'numero' => 'required|numeric',
             'rua' => 'required|string',
@@ -46,7 +47,10 @@ class RegistroColetaController extends Controller
             'cidade' => 'required|string',
             'uf' => 'required|string',
             'descricao' => 'exclude_if:descricao,null|nullable|string|max:300',
-        ])->validated();
+        ]);
+
+        $dadosValidados = $dadosValidados->validate();
+
         $dadosValidados['user_id'] = $user->id;
         try {
             $criado = RegistroColeta::create($dadosValidados);
@@ -90,7 +94,14 @@ class RegistroColetaController extends Controller
     {
         $user = $request->user();
         $dadosValidados = Validator::make($request->all(), [
-            'data_hora' => 'required',
+            'data_hora' => [
+                'required',
+                function ($attribute, $value, $fail) {
+                    if (!(date("Y-m-dTH:i", strtotime($value)) == date($value)) && !(date("Y-m-d\ H:i:s", strtotime($value)) == date($value))) {
+                        $fail($attribute.' is invalid.');
+                    }
+                },
+            ],
             'cep' => 'required|numeric',
             'numero' => 'required|numeric',
             'rua' => 'required|string',
@@ -98,7 +109,7 @@ class RegistroColetaController extends Controller
             'cidade' => 'required|string',
             'uf' => 'required|string',
             'descricao' => 'exclude_if:descricao,null|nullable|string|max:300',
-        ])->validated();
+        ])->validate();
         $dadosValidados['user_id'] = $user->id;
         try {
             $editado = RegistroColeta::find($id)->update($dadosValidados);
@@ -126,6 +137,11 @@ class RegistroColetaController extends Controller
     public function destroy($id)
     {
         RegistroColeta::find($id)->delete();
+    }
+
+    public function restore($id)
+    {
+        RegistroColeta::withTrashed()->find($id)->restore();
     }
 
     public function forceDelete($id)

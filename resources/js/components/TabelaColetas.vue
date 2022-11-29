@@ -34,6 +34,7 @@
           <v-icon small class="mr-2"> mdi-pencil </v-icon>
         </router-link>
 
+        <v-icon class="mr-2" v-if="item.deleted_at" small @click="restaurar(item)"> mdi-restore </v-icon>
         <v-icon v-if="item.status !== 1" small @click="deleteItem(item)"> mdi-delete </v-icon>
       </template>
       <template slot="no-data">
@@ -87,6 +88,15 @@ export default {
     confirmarColeta(item){
         axios
         .patch("/coleta/confirmar/" + item.id)
+        .then((r) => {
+          this.getData();
+        })
+        .catch((e) => console.log(e));
+    },
+
+    restaurar(item){
+        axios
+        .post("/coleta/restore/" + item.id)
         .then((r) => {
           this.getData();
         })

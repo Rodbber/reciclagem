@@ -4,16 +4,11 @@
       <v-icon color="black"> mdi-arrow-left </v-icon>
     </router-link>
     <div class="overflow-y-auto overflow-x-hidden max-h-max w-full">
-      <div class="h-5" v-if="success || error">
-        <v-alert type="success" v-if="success"> Sucesso! </v-alert>
-        <v-alert type="error" v-if="error"> Erro! </v-alert>
-      </div>
-
       <div class="flex flex-col items-center pt-5 space-y-5">
         <v-row class="justify-start">
-          <label for="dataColeta">data da coleta:</label>
+          <label for="dataColeta">data e hora da coleta:</label>
         </v-row>
-        <div class="border">
+        <div class="border p-2 rounded-lg">
           <input
             id="dataColeta"
             type="datetime-local"
@@ -106,7 +101,7 @@
         top
         :color="message == 'Sucesso!' ? 'success' : 'error'"
       >
-        {{ message }}
+      <span v-html="message"></span>
 
         <template v-slot:action="{ attrs }">
           <v-btn color="blue" text v-bind="attrs" @click="snackbar = false">
@@ -215,10 +210,17 @@ export default {
           }
         })
         .catch((e) => {
-            this.snackbar = true;
-          this.message = "Error!";
-          this.loading = false;
+          this.snackbar = true;
+          this.message = "Error!<br/>";
+          let messageErros = "";
           console.log(e);
+          if (e.response && e.response.status == 422) {
+            for(let i in e.response.data.errors){
+                messageErros += e.response.data.errors[i][0] + "<br/>"
+            }
+          }
+          this.message += messageErros;
+          this.loading = false;
         });
     },
     cep(value) {

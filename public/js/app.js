@@ -3387,10 +3387,17 @@ var render = function () {
                       },
                       [
                         _c(
-                          "v-toolbar-title",
+                          "router-link",
+                          { staticClass: "text-white", attrs: { to: "/" } },
                           [
-                            _vm._v("Coleta maneira\n              "),
-                            _c("v-icon", [_vm._v("mdi-recycle")]),
+                            _c(
+                              "v-toolbar-title",
+                              [
+                                _vm._v("Coleta seletiva\n              "),
+                                _c("v-icon", [_vm._v("mdi-recycle")]),
+                              ],
+                              1
+                            ),
                           ],
                           1
                         ),
@@ -3420,8 +3427,6 @@ var render = function () {
         ],
         1
       ),
-      _vm._v(" "),
-      _c("BottonSheet"),
     ],
     1
   )

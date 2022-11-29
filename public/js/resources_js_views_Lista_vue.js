@@ -58,6 +58,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -119,35 +120,43 @@ __webpack_require__.r(__webpack_exports__);
         return console.log(e);
       });
     },
+    restaurar: function restaurar(item) {
+      var _this2 = this;
+      axios__WEBPACK_IMPORTED_MODULE_0___default().post("/coleta/restore/" + item.id).then(function (r) {
+        _this2.getData();
+      })["catch"](function (e) {
+        return console.log(e);
+      });
+    },
     // editItem(item) {
     //     this.$route.push({name:'editar_coleta', props:{id:item.id}})
     // },
     deleteItem: function deleteItem(item) {
-      var _this2 = this;
+      var _this3 = this;
       if (!item.deleted_at) {
         axios__WEBPACK_IMPORTED_MODULE_0___default()["delete"]("/coleta/" + item.id).then(function (r) {
-          _this2.getData();
+          _this3.getData();
         })["catch"](function (e) {
           return console.log(e);
         });
       } else {
         axios__WEBPACK_IMPORTED_MODULE_0___default()["delete"]("/coleta/force/" + item.id).then(function (r) {
-          _this2.getData();
+          _this3.getData();
         })["catch"](function (e) {
           return console.log(e);
         });
       }
     },
     getData: function getData() {
-      var _this3 = this;
+      var _this4 = this;
       this.loading = true;
       axios__WEBPACK_IMPORTED_MODULE_0___default().get("/coleta/all").then(function (r) {
         if (r.data) {
-          _this3.coletas = r.data;
+          _this4.coletas = r.data;
         }
-        _this3.loading = false;
+        _this4.loading = false;
       })["catch"](function (e) {
-        _this3.loading = false;
+        _this4.loading = false;
         console.log(e);
       });
     }
@@ -175,6 +184,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _components_TabelaColetas_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../components/TabelaColetas.vue */ "./resources/js/components/TabelaColetas.vue");
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -454,6 +469,22 @@ var render = function () {
                       )
                     : _vm._e(),
                   _vm._v(" "),
+                  item.deleted_at
+                    ? _c(
+                        "v-icon",
+                        {
+                          staticClass: "mr-2",
+                          attrs: { small: "" },
+                          on: {
+                            click: function ($event) {
+                              return _vm.restaurar(item)
+                            },
+                          },
+                        },
+                        [_vm._v(" mdi-restore ")]
+                      )
+                    : _vm._e(),
+                  _vm._v(" "),
                   item.status !== 1
                     ? _c(
                         "v-icon",
@@ -518,30 +549,44 @@ var render = function () {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    [
-      _c(
-        "router-link",
-        {
-          staticClass: "pl-10",
-          attrs: { slot: "right", to: "/home" },
-          slot: "right",
-        },
-        [
-          _c("v-icon", { staticClass: "mt-10", attrs: { color: "black" } }, [
-            _vm._v(" mdi-arrow-left "),
-          ]),
-        ],
-        1
-      ),
-      _vm._v(" "),
-      _c("div", [_c("TabelaColetas")], 1),
-    ],
-    1
-  )
+  return _c("div", [
+    _c(
+      "div",
+      { staticClass: "flex" },
+      [
+        _c(
+          "router-link",
+          {
+            staticClass: "pl-10",
+            attrs: { slot: "right", to: "/home" },
+            slot: "right",
+          },
+          [
+            _c("v-icon", { staticClass: "mt-10", attrs: { color: "black" } }, [
+              _vm._v(" mdi-arrow-left "),
+            ]),
+          ],
+          1
+        ),
+        _vm._v(" "),
+        _vm._m(0),
+      ],
+      1
+    ),
+    _vm._v(" "),
+    _c("div", [_c("TabelaColetas")], 1),
+  ])
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "pl-10 mt-10" }, [
+      _c("h1", [_vm._v("Lista de coletas")]),
+    ])
+  },
+]
 render._withStripped = true
 
 

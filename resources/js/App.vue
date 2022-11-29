@@ -9,11 +9,12 @@
               dense
               dark
             >
+            <router-link to="/" class="text-white">
               <v-toolbar-title
-                >Coleta maneira
+                >Coleta seletiva
                 <v-icon>mdi-recycle</v-icon>
               </v-toolbar-title>
-
+            </router-link>
               <v-spacer></v-spacer>
 
               <Popup />
@@ -25,7 +26,6 @@
         </div>
       </v-responsive>
     </v-app>
-    <BottonSheet />
   </div>
 </template>
 
@@ -37,3 +37,5 @@ export default {
   components: { Popup },
 };
 </script>
+
+

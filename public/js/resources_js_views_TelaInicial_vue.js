@@ -75,7 +75,7 @@ var render = function () {
       _c("ul", [
         _c("li", [
           _vm._v(
-            '\n        Clique no botão "Listar de coletas" para ver todas coletas registradas\n      '
+            '\n        Clique no botão "Lista de coletas" para ver todas coletas registradas\n      '
           ),
         ]),
         _vm._v(" "),
@@ -88,7 +88,7 @@ var render = function () {
         _c(
           "li",
           [
-            _vm._v('\n        Em "Listar de coletas", clicando em\n        '),
+            _vm._v('\n        Em "Lista de coletas", clicando em\n        '),
             _c("v-icon", { staticClass: "mr-2", attrs: { small: "" } }, [
               _vm._v(" mdi-pencil "),
             ]),
@@ -100,7 +100,7 @@ var render = function () {
         _c(
           "li",
           [
-            _vm._v('\n        Em "Listar de coletas", clicando em '),
+            _vm._v('\n        Em "Lista de coletas", clicando em '),
             _c("v-icon", { attrs: { small: "" } }, [_vm._v(" mdi-delete ")]),
             _vm._v(
               ",\n        você pode cancelar uma coleta registrada\n      "
@@ -112,7 +112,7 @@ var render = function () {
         _c(
           "li",
           [
-            _vm._v('\n        Em "Listar de coletas", clicando em '),
+            _vm._v('\n        Em "Lista de coletas", clicando em '),
             _c("v-icon", { attrs: { small: "" } }, [_vm._v(" mdi-delete ")]),
             _vm._v(
               ",\n        quando cancelada, você pode apagar uma coleta cancelada\n      "
@@ -124,7 +124,7 @@ var render = function () {
         _c(
           "li",
           [
-            _vm._v('\n        Em "Listar de coletas", clicando em\n        '),
+            _vm._v('\n        Em "Lista de coletas", clicando em\n        '),
             _c("v-icon", { attrs: { small: "" } }, [
               _vm._v(" mdi-check-bold "),
             ]),
@@ -144,6 +144,12 @@ var render = function () {
           ],
           1
         ),
+        _vm._v(" "),
+        _c("li", [
+          _vm._v(
+            "\n        Clicar a qualquer momento no icone no canto superior a esquerda para ver este tutorial de novo\n      "
+          ),
+        ]),
       ]),
       _vm._v(" "),
       _c(
